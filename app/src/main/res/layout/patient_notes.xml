@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/patient_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/patient1" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image"
+            android:text="Name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_toRightOf="@+id/image"
+            android:text="Age"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/age"
+            android:layout_toRightOf="@+id/image"
+            android:text="room"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/title_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/physician"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:text="Physician"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_font" />
+
+        <TextView
+            android:text="Status"
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/physician"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/title_font" />
+
+        <TextView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/change_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/status"
+            android:layout_below="@+id/physician"
+            android:text="(Change)"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/title_font" />
+
+        <LinearLayout
+            android:layout_below="@+id/change_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:id="@+id/stat1"
+                android:layout_width="@dimen/quick_action"
+                android:layout_height="@dimen/quick_action"
+                android:layout_margin="6dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/stat2"
+                android:layout_width="@dimen/quick_action"
+                android:layout_height="@dimen/quick_action"
+                android:layout_margin="6dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/stat3"
+                android:layout_width="@dimen/quick_action"
+                android:layout_height="@dimen/quick_action"
+                android:layout_margin="6dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/stat4"
+                android:layout_width="@dimen/quick_action"
+                android:layout_height="@dimen/quick_action"
+                android:layout_margin="6dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

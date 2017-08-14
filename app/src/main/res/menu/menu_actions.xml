@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_action"
+        android:orderInCategory="100"
+        android:title="Add Action"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/add_diagnosis"
+        android:orderInCategory="100"
+        android:title="Add Diagnosis"
+        app:showAsAction="never" />
+    <item
+    android:id="@+id/add_note"
+    android:orderInCategory="100"
+    android:title="Add Note"
+    app:showAsAction="never" />
+
+    <item
+        android:id="@+id/add_procedure"
+        android:orderInCategory="100"
+        android:title="Add Surgical Procedure"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/patient_edit"
+        android:icon="@mipmap/edit_user"
+        android:title="Add Surgical Procedure"
+        app:showAsAction="always" />
+</menu>

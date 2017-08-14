@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">St Lukes</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Validation -->
+    <string name="txt_Unknown">Unknown</string>
+    <string name="txt_No_Internet">Sorry, network is not available. Please try again later.</string>
+    <string name="error_empty_email">Please Enter Email Address.</string>
+    <string name="error_empty_password">Please Enter Password.</string>
+    <string name="error_empty_new_password">Please Enter New Password.</string>
+    <string name="error_empty_confirm_password">Please Enter Re-enter Password.</string>
+    <string name="error_no_match_confirm_password">New password does not match the re-entered password.</string>
+    <string name="error_empty_Firstname">Please Enter Firstname.</string>
+    <string name="error_empty_Lastname">Please Enter Lastname.</string>
+    <string name="error_empty_Mobilenumber">Please Enter Mobile Number.</string>
+    <string name="error_empty_bithdate">Please Enter Birth-date.</string>
+    <string name="txt_quit_confirm">Do you want to Quit?</string>
+    <string name="txt_error_occurs">Sorry, network is not available. Please try again later.</string>
+    <string name="error_empty_Address">Please Enter Address.</string>
+    <string name="error_empty_city">Please Select City.</string>
+    <string name="error_empty_mobile">Please Enter Mobile No.</string>
+    <string name="error_invalid_mobile">Please enter valid mobile no. i.e. 09171229333</string>
+    <string name="error_empty_name">Please Enter Name.</string>
+
+    <string name="spinner_title">Select Status</string>
+    <string-array name="status_array">
+        <item>Admission</item>
+        <item>Referral</item>
+        <item>Surgical Procedure</item>
+    </string-array>
+</resources>

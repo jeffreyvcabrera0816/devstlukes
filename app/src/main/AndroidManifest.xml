@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ph.com.jeffreyvcabrera.stlukesdev">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".utils.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.TesterActivity" />
+        <activity
+            android:name=".activities.PatientsList"
+            android:parentActivityName=".activities.MainActivity"></activity>
+        <activity
+            android:name=".activities.PatientNotes"
+            android:label="Patient Details"
+            android:parentActivityName=".activities.PatientsList"
+            android:theme="@style/patientNotes" />
+        <activity
+            android:name=".activities.Login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.AddDiagnosis"
+            android:label="Add Diagnosis" />
+        <activity
+            android:name=".activities.AddNotes"
+            android:label="Add Note" />
+        <activity
+            android:name=".activities.AddAction"
+            android:label="Add Action" />
+        <activity
+            android:name=".activities.AddSurgicalProcedure"
+            android:label="Add Surgical Procedure" />
+        <activity android:name=".activities.EditPatient" />
+        <activity
+            android:name=".activities.PatientEdit"
+            android:label="Edit Patient Profile"></activity>
+        <activity
+            android:name=".activities.PatientAdd"
+            android:label="Add New Patient"></activity>
+        <activity
+            android:name=".activities.ImageAdd"
+            android:label="Upload Image"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath"></meta-data>
+        </provider>
+
+        <activity android:name=".activities.UserProfile" android:parentActivityName=".activities.MainActivity"></activity>
+    </application>
+
+</manifest>
