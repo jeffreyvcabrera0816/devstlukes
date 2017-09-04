@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 //import android.widget.SearchView;
 import android.widget.Toast;
@@ -192,6 +193,7 @@ public class PatientsList extends AppCompatActivity implements AsyncTaskListener
 
                     listAdapter = new PatientsListAdapter(this, deptList);
                     myList.setAdapter(listAdapter);
+                    myList.setItemsCanFocus(true);
 
                 } else {
 
@@ -244,7 +246,6 @@ public class PatientsList extends AppCompatActivity implements AsyncTaskListener
                 myDepartments.clear();
                 deptList.clear();
                 listAdapter.notifyDataSetChanged();
-//                Toast.makeText(PatientsList.this, "test", Toast.LENGTH_SHORT).show();
                 new API(PatientsList.this, PatientsList.this).execute("POST", "/api_patients/search/"+query+"/"+role+"/"+id);
 
                 return true;
@@ -286,6 +287,12 @@ public class PatientsList extends AppCompatActivity implements AsyncTaskListener
             myDepartments.clear();
             deptList.clear();
             new API(this, this).execute("POST", "/api_patients/list/status/"+role+"/"+id);
+        }
+
+        if (id == R.id.sort_date) {
+            myDepartments.clear();
+            deptList.clear();
+            new API(this, this).execute("POST", "/api_patients/list/date_admitted desc/"+role+"/"+id);
         }
 
         if (id == R.id.action_add) {

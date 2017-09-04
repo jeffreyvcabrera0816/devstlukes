@@ -165,8 +165,10 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
             public void onClick(View view) {
                 stat1.startAnimation(button_animation);
                 if (getIntent().getExtras().getInt("change_dressing") == 1) {
+                    stat1.setImageResource(R.mipmap.triangle_black);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+1+"/"+getIntent().getExtras().getInt("id")+"/"+0).execute();
                 } else {
+                    stat1.setImageResource(R.mipmap.triangle_yellow);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+1+"/"+getIntent().getExtras().getInt("id")+"/"+1).execute();
                 }
             }
@@ -177,8 +179,10 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
             public void onClick(View view) {
                 stat2.startAnimation(button_animation);
                 if (getIntent().getExtras().getInt("priority") == 1) {
+                    stat2.setImageResource(R.mipmap.star_black);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+2+"/"+getIntent().getExtras().getInt("id")+"/"+0).execute();
                 } else {
+                    stat2.setImageResource(R.mipmap.star_yellow);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+2+"/"+getIntent().getExtras().getInt("id")+"/"+1).execute();
                 }
             }
@@ -189,8 +193,10 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
             public void onClick(View view) {
                 stat3.startAnimation(button_animation);
                 if (getIntent().getExtras().getInt("post_op") == 1) {
+                    stat3.setImageResource(R.mipmap.letter_p_black);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+3+"/"+getIntent().getExtras().getInt("id")+"/"+0).execute();
                 } else {
+                    stat3.setImageResource(R.mipmap.letter_p_yellow);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+3+"/"+getIntent().getExtras().getInt("id")+"/"+1).execute();
                 }
             }
@@ -201,8 +207,10 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
             public void onClick(View view) {
                 stat4.startAnimation(button_animation);
                 if (getIntent().getExtras().getInt("trach_care") == 1) {
+                    stat4.setImageResource(R.mipmap.letter_i_black);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+4+"/"+getIntent().getExtras().getInt("id")+"/"+0).execute();
                 } else {
+                    stat4.setImageResource(R.mipmap.letter_i_yellow);
                     new changeStatusAPI(PatientNotes.this, "/api_patients/changestatus/"+4+"/"+getIntent().getExtras().getInt("id")+"/"+1).execute();
                 }
             }
@@ -528,7 +536,7 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
                 String service = jObj.getString("service");
 
                 if (status) {
-                    Toast.makeText(act, "Status Changed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(act, "Status Changed", Toast.LENGTH_SHORT).show();
                 } else {
                     String message = jObj.getString("error");
                     Toast.makeText(act, "Error", Toast.LENGTH_LONG).show();

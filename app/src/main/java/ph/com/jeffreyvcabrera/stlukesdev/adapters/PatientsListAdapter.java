@@ -23,6 +23,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,10 +51,28 @@ import ph.com.jeffreyvcabrera.stlukesdev.utils.Settings;
 
 public class PatientsListAdapter extends BaseExpandableListAdapter implements Filterable {
      Animation button_animation;
-    ImageView stat1, stat2, stat3, stat4;
+
     private Context context;
     private ArrayList<HeaderInfo> deptList;
     LinearLayout list_row;
+    boolean status1 = true;
+    boolean status2 = true;
+    boolean status3 = true;
+    boolean status4 = true;
+
+    class ViewHolder {
+        ImageView stat1, stat2, stat3, stat4;
+        TextView name, age, room, latest_diagnosis, physician;
+
+        ViewHolder(View view) {
+            list_row = (LinearLayout) view.findViewById(R.id.patients_list_row);
+            name = (TextView) view.findViewById(R.id.name);
+            age = (TextView) view.findViewById(R.id.age);
+            room = (TextView) view.findViewById(R.id.room);
+            latest_diagnosis = (TextView) view.findViewById(R.id.latest_diagnosis);
+            physician = (TextView) view.findViewById(R.id.physician);
+        }
+    }
 
     public PatientsListAdapter(Context context, ArrayList<HeaderInfo> deptList) {
         this.context = context;
@@ -76,119 +95,138 @@ public class PatientsListAdapter extends BaseExpandableListAdapter implements Fi
                              View view, ViewGroup parent) {
 
         final DetailInfo detailInfo = (DetailInfo) getChild(groupPosition, childPosition);
+        final ViewHolder holder;
+
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.child_row, null);
+
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
         }
 
         button_animation = AnimationUtils.loadAnimation(context, R.anim.button_animate);
 
-        list_row = (LinearLayout) view.findViewById(R.id.patients_list_row);
-        TextView name = (TextView) view.findViewById(R.id.name);
-        TextView age = (TextView) view.findViewById(R.id.age);
-        TextView room = (TextView) view.findViewById(R.id.room);
-        TextView latest_diagnosis = (TextView) view.findViewById(R.id.latest_diagnosis);
-        TextView physician = (TextView) view.findViewById(R.id.physician);
 
-        name.setText(detailInfo.getLastname()+", "+detailInfo.getFirstname());
+
+        holder.name.setText(detailInfo.getLastname()+", "+detailInfo.getFirstname());
             String gender = "";
         if (detailInfo.getGender() == 1) {
             gender = "M";
         } else {
             gender = "F";
         }
-        age.setText(detailInfo.getAge()+ gender);
-        room.setText(detailInfo.getRoom());
+        holder.age.setText(detailInfo.getAge()+ gender);
+        holder.room.setText(detailInfo.getRoom());
 
         if (detailInfo.getPhysician().equals("")) {
-            physician.setText("Physician/s: Not Assigned");
+            holder.physician.setText("Physician/s: Not Assigned");
         } else {
-            physician.setText("Physician/s: "+detailInfo.getPhysician());
+            holder.physician.setText("Physician/s: "+detailInfo.getPhysician());
         }
 
         if (detailInfo.getDiagnosis().equals("")) {
-            latest_diagnosis.setText("Latest Diagnosis: No Record");
+            holder.latest_diagnosis.setText("Latest Diagnosis: No Record");
         } else {
-            latest_diagnosis.setText("Latest Diagnosis: "+detailInfo.getDiagnosis());
+            holder.latest_diagnosis.setText("Latest Diagnosis: "+detailInfo.getDiagnosis());
         }
 
-        stat1 = (ImageView) view.findViewById(R.id.stat1);
-        stat2 = (ImageView) view.findViewById(R.id.stat2);
-        stat3 = (ImageView) view.findViewById(R.id.stat3);
-        stat4 = (ImageView) view.findViewById(R.id.stat4);
+        holder.stat1 = (ImageView) view.findViewById(R.id.stat1);
+        holder.stat2 = (ImageView) view.findViewById(R.id.stat2);
+        holder.stat3 = (ImageView) view.findViewById(R.id.stat3);
+        holder.stat4 = (ImageView) view.findViewById(R.id.stat4);
 
         if (detailInfo.getChange_dressing().equals(1)) {
-            stat1.setImageResource(R.mipmap.triangle_yellow);
+            status1 = true;
+            holder.stat1.setImageResource(R.mipmap.triangle_yellow);
         } else {
-            stat1.setImageResource(R.mipmap.triangle_black);
+            status1 = false;
+            holder.stat1.setImageResource(R.mipmap.triangle_black);
         }
 
         if (detailInfo.getPriority().equals(1)) {
-            stat2.setImageResource(R.mipmap.star_yellow);
+            status2 = true;
+            holder.stat2.setImageResource(R.mipmap.star_yellow);
         } else {
-            stat2.setImageResource(R.mipmap.star_black);
+            status2 = false;
+            holder.stat2.setImageResource(R.mipmap.star_black);
         }
 
         if (detailInfo.getPost_op().equals(1)) {
-            stat3.setImageResource(R.mipmap.letter_p_yellow);
+            status3 = true;
+            holder.stat3.setImageResource(R.mipmap.letter_p_yellow);
         } else {
-            stat3.setImageResource(R.mipmap.letter_p_black);
+            status3 = false;
+            holder.stat3.setImageResource(R.mipmap.letter_p_black);
         }
 
         if (detailInfo.getTrach_care().equals(1)) {
-            stat4.setImageResource(R.mipmap.letter_i_yellow);
+            status4 = true;
+            holder.stat4.setImageResource(R.mipmap.letter_i_yellow);
         } else {
-            stat4.setImageResource(R.mipmap.letter_i_black);
+            status4 = false;
+            holder.stat4.setImageResource(R.mipmap.letter_i_black);
         }
 
-        stat1.setOnClickListener(new View.OnClickListener() {
+        holder.stat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImageView imageView1 = (ImageView) view.findViewById(R.id.stat1);
                 imageView1.startAnimation(button_animation);
+
                 if (detailInfo.getChange_dressing() == 1) {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+1+"/"+detailInfo.getId()+"/"+0).execute();
+                    holder.stat1.setImageResource(R.mipmap.triangle_black);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+1+"/"+detailInfo.getId()+"/"+0, 10).execute();
                 } else {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+1+"/"+detailInfo.getId()+"/"+1).execute();
+                    holder.stat1.setImageResource(R.mipmap.triangle_yellow);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+1+"/"+detailInfo.getId()+"/"+1, 11).execute();
                 }
             }
         });
 
-        stat2.setOnClickListener(new View.OnClickListener() {
+        holder.stat2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImageView imageView2 = (ImageView) view.findViewById(R.id.stat2);
                 imageView2.startAnimation(button_animation);
                 if (detailInfo.getPriority() == 1) {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+2+"/"+detailInfo.getId()+"/"+0).execute();
+                    holder.stat2.setImageResource(R.mipmap.star_black);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+2+"/"+detailInfo.getId()+"/"+0, 20).execute();
                 } else {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+2+"/"+detailInfo.getId()+"/"+1).execute();
+                    holder.stat2.setImageResource(R.mipmap.star_yellow);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+2+"/"+detailInfo.getId()+"/"+1, 21).execute();
                 }
             }
         });
 
-        stat3.setOnClickListener(new View.OnClickListener() {
+        holder.stat3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImageView imageView3 = (ImageView) view.findViewById(R.id.stat3);
                 imageView3.startAnimation(button_animation);
                 if (detailInfo.getPost_op() == 1) {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+3+"/"+detailInfo.getId()+"/"+0).execute();
+                    holder.stat3.setImageResource(R.mipmap.letter_p_black);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+3+"/"+detailInfo.getId()+"/"+0, 30).execute();
                 } else {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+3+"/"+detailInfo.getId()+"/"+1).execute();
+                    holder.stat3.setImageResource(R.mipmap.letter_p_yellow);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+3+"/"+detailInfo.getId()+"/"+1, 31).execute();
                 }
             }
         });
 
-        stat4.setOnClickListener(new View.OnClickListener() {
+        holder.stat4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ImageView imageView4 = (ImageView) view.findViewById(R.id.stat4);
                 imageView4.startAnimation(button_animation);
                 if (detailInfo.getTrach_care() == 1) {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+4+"/"+detailInfo.getId()+"/"+0).execute();
+                    holder.stat4.setImageResource(R.mipmap.letter_i_black);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+4+"/"+detailInfo.getId()+"/"+0, 40).execute();
                 } else {
-                    new changeStatusAPI(context, "/api_patients/changestatus/"+4+"/"+detailInfo.getId()+"/"+1).execute();
+                    holder.stat4.setImageResource(R.mipmap.letter_i_yellow);
+                    new changeStatusAPI(context, "/api_patients/changestatus/"+4+"/"+detailInfo.getId()+"/"+1, 41).execute();
                 }
             }
         });
@@ -234,10 +272,12 @@ public class PatientsListAdapter extends BaseExpandableListAdapter implements Fi
         Context act;
         ProgressDialog pd;
         String api_url;
+        int stats;
 
-        public changeStatusAPI(Context act, String api_url) {
+        public changeStatusAPI(Context act, String api_url, int stats) {
             this.act = act;
             this.api_url = api_url;
+            this.stats = stats;
         }
 
         @Override
@@ -294,7 +334,7 @@ public class PatientsListAdapter extends BaseExpandableListAdapter implements Fi
                 String service = jObj.getString("service");
 
                 if (status) {
-                    Toast.makeText(act, "Status Changed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(act, "Status Changed", Toast.LENGTH_SHORT).show();
                 } else {
                     String message = jObj.getString("error");
                     Toast.makeText(act, "Error", Toast.LENGTH_LONG).show();

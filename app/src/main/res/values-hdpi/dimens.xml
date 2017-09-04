@@ -1,0 +1,8 @@
+<resources>
+<dimen name="margin_image">33.3dp</dimen>
+
+<dimen name="splash_image_size">133.3dp</dimen>
+
+<dimen name="padding12">14.4dp</dimen>
+
+</resources>

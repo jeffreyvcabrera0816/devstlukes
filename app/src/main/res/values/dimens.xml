@@ -1,4 +1,8 @@
 <resources>
+<dimen name="margin_image">27.8dp</dimen>
+
+<dimen name="splash_image_size">111.1dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
@@ -17,8 +21,8 @@
     <dimen name="padding90">90dp</dimen>
     <dimen name="padding100">100dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="heading_font">18sp</dimen>
-    <dimen name="title_font">16sp</dimen>
-    <dimen name="sub_font">14sp</dimen>
+    <dimen name="heading_font">20sp</dimen>
+    <dimen name="title_font">18sp</dimen>
+    <dimen name="sub_font">16sp</dimen>
     <dimen name="quick_action">25dp</dimen>
 </resources>

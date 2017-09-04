@@ -1,44 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group
-        android:id="@+id/main_menu_group">
-    <item
-        android:id="@+id/sort_room"
-        android:orderInCategory="100"
-        android:title="Sort By Room"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/sort_name"
-        android:orderInCategory="100"
-        android:title="Sort By Name"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/sort_status"
-        android:orderInCategory="100"
-        android:title="Sort By Status"
-        app:showAsAction="never" />
+    <group android:id="@+id/main_menu_group">
+        <item
+            android:id="@+id/sort_room"
+            android:orderInCategory="100"
+            android:title="Sort By Room"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/sort_name"
+            android:orderInCategory="100"
+            android:title="Sort By Name"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/sort_status"
+            android:orderInCategory="100"
+            android:title="Sort By Status"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/sort_date"
+            android:orderInCategory="100"
+            android:title="Sort By Date"
+            app:showAsAction="never" />
     </group>
     <!--<item android:id="@+id/menuSearch"-->
-        <!--android:title="Search"-->
-        <!--android:icon="@android:drawable/ic_menu_search"-->
-        <!--app:actionViewClass="android.widget.SearchView"-->
-        <!--app:showAsAction="always"-->
-        <!--&gt;</item>-->
+    <!--android:title="Search"-->
+    <!--android:icon="@android:drawable/ic_menu_search"-->
+    <!--app:actionViewClass="android.widget.SearchView"-->
+    <!--app:showAsAction="always"-->
+    <!--&gt;</item>-->
 
-    <item android:id="@+id/action_search"
+    <item
+        android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
         android:orderInCategory="10"
         android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
 
-    <item android:id="@+id/action_add"
-        android:title="Search"
+    <item
+        android:id="@+id/action_add"
         android:icon="@mipmap/add_user"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
-
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
 
 
 </menu>

@@ -11,24 +11,24 @@
     tools:context="ph.com.jeffreyvcabrera.stlukesdev.activities.Login">
 
     <ScrollView
-        android:paddingTop="50dp"
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="50dp">
 
         <LinearLayout
-            android:padding="12dp"
-            android:gravity="center"
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <ImageView
-                android:layout_marginBottom="50dp"
-                android:src="@mipmap/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="@dimen/login_image_size"
+                android:layout_height="@dimen/login_image_size"
+                android:layout_marginBottom="@dimen/margin_image"
+                android:src="@mipmap/official_logo" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,20 +59,20 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:textColor="#FFFFFF"
-                android:background="@drawable/buttons"
                 android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:background="@drawable/buttons"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold"/>
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

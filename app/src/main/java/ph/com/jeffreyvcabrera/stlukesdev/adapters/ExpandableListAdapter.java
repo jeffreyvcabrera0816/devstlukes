@@ -32,7 +32,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildTypeCount () {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -88,6 +88,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             mExpandableListView.expandGroup(1);
             mExpandableListView.expandGroup(2);
             mExpandableListView.expandGroup(3);
+            mExpandableListView.expandGroup(4);
         }
         TextView lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
@@ -109,6 +110,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             } else if (childType == 2) {
                 view = inflater.inflate(R.layout.list_item,null);
             } else if (childType == 3) {
+                view = inflater.inflate(R.layout.list_item,null);
+            } else if (childType == 4) {
                 view = inflater.inflate(R.layout.daily_census_item_list,null);
             }
         }
@@ -117,7 +120,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView)view.findViewById(R.id.lblListItem);
         txtListChild.setText(childText);
 
-        if (childType == 3) {
+        if (childType == 4) {
             if (i1 == 0) {
                 status_name.setText("View All");
                 status_name.setAllCaps(true);

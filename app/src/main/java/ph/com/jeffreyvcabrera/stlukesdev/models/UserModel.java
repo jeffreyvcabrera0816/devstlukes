@@ -8,7 +8,7 @@ public class UserModel {
 
     Integer id, role, duty, gender;
     String firstname, middlename, lastname, email, image, md5_password, mac_address, mobile, date_added, last_login;
-
+    boolean logged_in;
     // getter
 
     public Integer getId() {
@@ -65,6 +65,10 @@ public class UserModel {
 
     public String getLast_login() {
         return last_login;
+    }
+
+    public boolean isLogged_in() {
+        return logged_in;
     }
 
     // setter
@@ -125,4 +129,10 @@ public class UserModel {
     public void setLast_login(String last_login) {
         this.last_login = last_login;
     }
+
+    public void setLogged_in(boolean logged_in) {
+        this.logged_in = logged_in;
+    }
+
+
 }

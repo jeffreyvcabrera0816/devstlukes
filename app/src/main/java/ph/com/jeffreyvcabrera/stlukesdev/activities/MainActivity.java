@@ -1,6 +1,7 @@
 package ph.com.jeffreyvcabrera.stlukesdev.activities;
 
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,8 +13,10 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,11 +51,8 @@ public class MainActivity extends AppCompatActivity
         this.getSupportActionBar().setTitle("Dashboard");
         Intent detailsIntent = new Intent(this, MainActivity.class);
 
-// Use TaskStackBuilder to build the back stack and get the PendingIntent
         PendingIntent pendingIntent =
                 TaskStackBuilder.create(this)
-                        // add all of DetailsActivity's parents to the stack,
-                        // followed by DetailsActivity itself
                         .addNextIntentWithParentStack(detailsIntent)
                         .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -84,19 +84,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setActivated(false);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-//        ImageView userImage = (ImageView) headerView.findViewById(R.id.userImage);
         TextView name = (TextView) headerView.findViewById(R.id.physician_name);
         TextView position = (TextView) headerView.findViewById(R.id.role);
         String[] roles = {"Admin", "Consultant", "Resident"};
         name.setText(firstname+" "+lastname);
         position.setText(roles[role]);
         String imgaq = Settings.local_url + "/assets/img/images/physicians/" + image;
-//        if (image.equals("")) {
-//            userImage.setImageResource(R.mipmap.person_placeholder);
-//        } else {
-//            aq.id(userImage).image(imgaq, false, true);
-//        }
-
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -122,9 +115,36 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_logout) {
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-            finish();
+            LayoutInflater li = LayoutInflater.from(MainActivity.this);
+            View promptsView = li.inflate(R.layout.prompt_logout, null);
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    MainActivity.this);
+
+            alertDialogBuilder.setView(promptsView);
+
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("Logout",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    SharedPrefManager sm = new SharedPrefManager(MainActivity.this);
+                                    sm.clearUser();
+
+                                    Intent intent = new Intent(MainActivity.this, Login.class);
+                                    intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                } });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
 
         }
 

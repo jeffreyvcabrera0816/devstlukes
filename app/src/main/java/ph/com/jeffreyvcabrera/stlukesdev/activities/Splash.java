@@ -1,83 +1,79 @@
 package ph.com.jeffreyvcabrera.stlukesdev.activities;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.os.Handler;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
 
 import ph.com.jeffreyvcabrera.stlukesdev.R;
 import ph.com.jeffreyvcabrera.stlukesdev.interfaces.AsyncTaskListener;
 import ph.com.jeffreyvcabrera.stlukesdev.models.UserModel;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.API;
-import ph.com.jeffreyvcabrera.stlukesdev.utils.Md5;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.SharedPrefManager;
+import ph.com.jeffreyvcabrera.stlukesdev.utils.SplashAPI;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.ValidationUtil;
 
-public class Login extends AppCompatActivity implements AsyncTaskListener {
+/**
+ * Created by Jeffrey on 9/4/2017.
+ */
 
-    EditText edtEmail;
-    EditText edtPass;
-    TextInputLayout mEmailLayout, mPasswordLayout;
-    Button sign_in_button;
-    SharedPreferences sharedpreferences;
+public class Splash extends Activity implements AsyncTaskListener{
 
+    private static int SPLASH_TIME_OUT = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        sharedpreferences = getSharedPreferences("USERINFO", Context.MODE_PRIVATE);
+        setContentView(R.layout.splash_activity);
 
-        init();
-    }
+        SharedPrefManager spm = new SharedPrefManager(this);
+        final String uemail = spm.getUser().getEmail();
+        final String upw = spm.getUser().getMd5_password();
+        final String umac = spm.getUser().getMac_address();
+        final Boolean isLogged = spm.getUser().isLogged_in();
 
-    private void init() {
-        edtEmail = (EditText) findViewById(R.id.email);
-        edtPass = (EditText) findViewById(R.id.password);
-        sign_in_button = (Button) findViewById(R.id.sign_in_button);
+        if (isLogged) {
+            if (ValidationUtil.isNetworkAvailable(Splash.this)) {
+                initAPI(uemail, upw, umac);
+            } else {
+                ValidationUtil.showNoInternetAlert(Splash.this);
+            }
+        } else {
+            if (ValidationUtil.isNetworkAvailable(Splash.this)) {
 
-        sign_in_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isDataValid();
-//                Toast.makeText(Login.this, "test", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+
+         /*
+          * Showing splash screen with a timer. This will be useful when you
+          * want to show case your app logo / company
+          */
+
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(Splash.this, Login.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }, SPLASH_TIME_OUT);
+
+            } else {
+                ValidationUtil.showNoInternetAlert(Splash.this);
             }
 
-        });
-    }
-
-    private void isDataValid() {
-        // TODO Auto-generated method stub
-        boolean isValid = ValidationUtil.isEmailDataValid(edtEmail, this,
-                mEmailLayout);
-        if (isValid) {
-            isValid = ValidationUtil.isPasswordDataValid(edtPass, this,
-                    mPasswordLayout);
-            if (isValid) {
-                if (ValidationUtil.isNetworkAvailable(this)) {
-                    new API(this, this).execute("POST", "/api_users/login/" + edtEmail.getText() + "/" + Md5.md5(String.valueOf(edtPass.getText())) + "/" + getMac());
-
-                } else {
-                    ValidationUtil.showNoInternetAlert(this);
-                }
-            }
         }
+
+
+
+    }
+
+    private void initAPI(String email, String password, String mac) {
+        new SplashAPI(this, this).execute("POST", "/api_users/login/" + email + "/" + password + "/" + mac);
     }
 
     @Override
     public void onTaskComplete(String result) {
-
         try {
             JSONObject jObj = new JSONObject(result);
             boolean success = jObj.getBoolean("success");
@@ -133,34 +129,5 @@ public class Login extends AppCompatActivity implements AsyncTaskListener {
             String message = "An error occured";
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public static String getMac() {
-        try {
-            String interfaceName = "wlan0";
-            List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
-            for (NetworkInterface intf : interfaces) {
-                if (!intf.getName().equalsIgnoreCase(interfaceName)) {
-                    continue;
-                }
-
-                byte[] mac = intf.getHardwareAddress();
-                if (mac == null) {
-                    return "";
-                }
-
-                StringBuilder buf = new StringBuilder();
-                for (byte aMac : mac) {
-                    buf.append(String.format("%02X:", aMac));
-                }
-                if (buf.length() > 0) {
-                    buf.deleteCharAt(buf.length() - 1);
-                }
-                return buf.toString();
-            }
-        } catch (Exception ex) {
-        } // for now eat exceptions
-        return "";
-
     }
 }

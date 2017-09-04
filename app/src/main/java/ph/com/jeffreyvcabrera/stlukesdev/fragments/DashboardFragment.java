@@ -83,12 +83,14 @@ public class DashboardFragment extends Fragment implements AsyncTaskListener, Sw
                     List<String> daily_census = new ArrayList<>();
                     List<String> duty_team = new ArrayList<>();
                     List<String> incoming_duty_team = new ArrayList<>();
+                    List<String> from_duty_team = new ArrayList<>();
 
                     listDataHeader = new ArrayList<>();
                     listHash = new HashMap<>();
                     listDataHeader.add("Announcements");
-                    listDataHeader.add("Duty Team");
-                    listDataHeader.add("Incoming Duty Team");
+                    listDataHeader.add("On Duty");
+                    listDataHeader.add("Pre Duty");
+                    listDataHeader.add("From Duty");
                     listDataHeader.add("Daily Census");
                     daily_census.add("#");
 
@@ -120,9 +122,9 @@ public class DashboardFragment extends Fragment implements AsyncTaskListener, Sw
                         JSONObject a = duty.getJSONObject(x);
 
                         if (a.getString("gender").equals("1")) {
-                            duty_team.add("Dr. "+a.getString("lastname"));
+                            duty_team.add("Dr. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
                         } else {
-                            duty_team.add("Dra. "+a.getString("lastname"));
+                            duty_team.add("Dra. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
                         }
                     }
 
@@ -132,9 +134,21 @@ public class DashboardFragment extends Fragment implements AsyncTaskListener, Sw
                         JSONObject a = incomingduty.getJSONObject(x);
 
                         if (a.getString("gender").equals("1")) {
-                            incoming_duty_team.add("Dr. "+a.getString("lastname"));
+                            incoming_duty_team.add("Dr. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
                         } else {
-                            incoming_duty_team.add("Dra. "+a.getString("lastname"));
+                            incoming_duty_team.add("Dra. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
+                        }
+                    }
+
+                    JSONArray fromduty = jObj.optJSONArray("from_duty");
+                    Log.d("response", fromduty.toString());
+                    for (int x = 0; x < fromduty.length(); x++) {
+                        JSONObject a = fromduty.getJSONObject(x);
+
+                        if (a.getString("gender").equals("1")) {
+                            from_duty_team.add("Dr. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
+                        } else {
+                            from_duty_team.add("Dra. "+a.getString("lastname")+" ("+ a.getString("mobile")+")");
                         }
                     }
 
@@ -149,7 +163,8 @@ public class DashboardFragment extends Fragment implements AsyncTaskListener, Sw
                     listHash.put(listDataHeader.get(0),announcements);
                     listHash.put(listDataHeader.get(1),duty_team);
                     listHash.put(listDataHeader.get(2),incoming_duty_team);
-                    listHash.put(listDataHeader.get(3),daily_census);
+                    listHash.put(listDataHeader.get(3),from_duty_team);
+                    listHash.put(listDataHeader.get(4),daily_census);
 
                     expandableListAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listHash);
                     listView.setAdapter(expandableListAdapter);
@@ -158,7 +173,7 @@ public class DashboardFragment extends Fragment implements AsyncTaskListener, Sw
                         @Override
                         public boolean onChildClick(ExpandableListView parent, View v,int groupPosition, int childPosition, long id) {
 //                            if (groupPosition == 3 && childPosition == 0) {
-                            if (groupPosition == 3) {
+                            if (groupPosition == 4) {
                                 Intent intent = new Intent(getActivity(), PatientsList.class);
                                 getActivity().startActivity(intent);
                             }

@@ -39,6 +39,7 @@ public class SharedPrefManager {
         x.putString("md5_password", u.getMd5_password());
         x.putString("date_added", u.getDate_added());
         x.putString("last_login", u.getLast_login());
+        x.putBoolean("logged_in", u.isLogged_in());
         x.commit();
         Log.e("pref saved!", "saved");
     }
@@ -61,6 +62,7 @@ public class SharedPrefManager {
         um.setMd5_password(s.getString("md5_password", ""));
         um.setDate_added(s.getString("date_added", ""));
         um.setLast_login(s.getString("last_login", ""));
+        um.setLogged_in(s.getBoolean("logged_in", false));
 
         return um;
     }
