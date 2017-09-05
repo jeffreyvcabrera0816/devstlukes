@@ -14,9 +14,10 @@
             android:id="@+id/nav_new_patient"
             android:icon="@mipmap/add_user_2"
             android:title="Add New Patient" />
-        <!--<item-->
-            <!--android:id="@+id/nav_help"-->
-            <!--android:title="Help" />-->
+        <item
+            android:id="@+id/nav_change_pass"
+            android:icon="@mipmap/settings"
+            android:title="Change Password" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@mipmap/logout"

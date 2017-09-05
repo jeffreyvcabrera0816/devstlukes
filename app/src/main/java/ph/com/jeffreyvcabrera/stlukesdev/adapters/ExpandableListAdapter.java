@@ -84,11 +84,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.list_group,null);
             ExpandableListView mExpandableListView = (ExpandableListView) viewGroup;
-            mExpandableListView.expandGroup(0);
-            mExpandableListView.expandGroup(1);
-            mExpandableListView.expandGroup(2);
-            mExpandableListView.expandGroup(3);
-            mExpandableListView.expandGroup(4);
         }
         TextView lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ph.com.jeffreyvcabrera.stlukesdev.R;
@@ -35,6 +36,7 @@ import ph.com.jeffreyvcabrera.stlukesdev.interfaces.AsyncTaskListener;
 import ph.com.jeffreyvcabrera.stlukesdev.models.ActionsBody;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.API;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.Settings;
+import ph.com.jeffreyvcabrera.stlukesdev.utils.SharedPrefManager;
 
 public class AddSurgicalProcedure extends AppCompatActivity implements AsyncTaskListener {
 
@@ -56,12 +58,15 @@ public class AddSurgicalProcedure extends AppCompatActivity implements AsyncTask
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sp = AddSurgicalProcedure.this.getSharedPreferences("USERINFO",0);
-                Integer id = sp.getInt("id", 0);
+                SharedPrefManager spm = new SharedPrefManager(AddSurgicalProcedure.this);
+                Integer id = spm.getUser().getId();
+                Integer patient_id = getIntent().getExtras().getInt("id");
+                String action = URLEncoder.encode(content.getText().toString().trim());
+
                 if (content.getText().toString().trim().equals("")) {
                     Toast.makeText(AddSurgicalProcedure.this, "Cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    new API(AddSurgicalProcedure.this, AddSurgicalProcedure.this).execute("POST", "/api_patients/addprocedure/" + content.getText() + "/" + getIntent().getExtras().getInt("id") + "/" + id);
+                    new API(AddSurgicalProcedure.this, AddSurgicalProcedure.this).execute("POST", "/api_patients/addprocedure/" + action + "/" + patient_id + "/" + id);
                 }
             }
         });

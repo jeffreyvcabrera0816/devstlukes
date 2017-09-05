@@ -370,6 +370,7 @@ public class PatientNotes extends AppCompatActivity implements AsyncTaskListener
 
                     listAdapter = new ActionsAdapter(PatientNotes.this, deptList);
                     myList.setAdapter(listAdapter);
+                    listAdapter.notifyDataSetChanged();
 
                 } else {
 

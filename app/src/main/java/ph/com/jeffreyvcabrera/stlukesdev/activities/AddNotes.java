@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ph.com.jeffreyvcabrera.stlukesdev.R;
@@ -35,6 +36,7 @@ import ph.com.jeffreyvcabrera.stlukesdev.interfaces.AsyncTaskListener;
 import ph.com.jeffreyvcabrera.stlukesdev.models.ActionsBody;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.API;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.Settings;
+import ph.com.jeffreyvcabrera.stlukesdev.utils.SharedPrefManager;
 
 public class AddNotes extends AppCompatActivity implements AsyncTaskListener {
 
@@ -56,12 +58,15 @@ public class AddNotes extends AppCompatActivity implements AsyncTaskListener {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sp = AddNotes.this.getSharedPreferences("USERINFO",0);
-                Integer id = sp.getInt("id", 0);
+                SharedPrefManager spm = new SharedPrefManager(AddNotes.this);
+                Integer id = spm.getUser().getId();
+                Integer patient_id = getIntent().getExtras().getInt("id");
+                String action = URLEncoder.encode(content.getText().toString().trim());
+                Toast.makeText(AddNotes.this, String.valueOf(id)+"="+action, Toast.LENGTH_LONG).show();
                 if (content.getText().toString().trim().equals("")) {
                     Toast.makeText(AddNotes.this, "Cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    new API(AddNotes.this, AddNotes.this).execute("POST", "/api_patients/addnote/"+content.getText()+"/"+getIntent().getExtras().getInt("id")+"/"+id);
+                    new API(AddNotes.this, AddNotes.this).execute("POST", "/api_patients/addnote/"+action+"/"+patient_id+"/"+id);
                 }
 
             }
@@ -81,7 +86,7 @@ public class AddNotes extends AppCompatActivity implements AsyncTaskListener {
 
                 if (success) {
                     String message = jObj.getString("msg");
-                    Toast.makeText(this, "Note Added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, PatientNotes.class);
                     Bundle bundle = new Bundle();
                     intent.putExtras(getBundle(bundle));

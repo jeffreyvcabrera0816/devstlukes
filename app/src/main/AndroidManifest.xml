@@ -60,6 +60,10 @@
             android:name=".activities.ImageAdd"
             android:label="Upload Image"></activity>
         <activity
+            android:name=".activities.ChangePassword"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="Change Password"></activity>
+        <activity
             android:name=".activities.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

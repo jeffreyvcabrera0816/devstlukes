@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ import ph.com.jeffreyvcabrera.stlukesdev.interfaces.AsyncTaskListener;
 import ph.com.jeffreyvcabrera.stlukesdev.models.ActionsBody;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.API;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.Settings;
+import ph.com.jeffreyvcabrera.stlukesdev.utils.SharedPrefManager;
 
 public class AddAction extends AppCompatActivity implements AsyncTaskListener {
 
@@ -60,12 +62,15 @@ public class AddAction extends AppCompatActivity implements AsyncTaskListener {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sp = AddAction.this.getSharedPreferences("USERINFO",0);
-                Integer id = sp.getInt("id", 0);
+                SharedPrefManager spm = new SharedPrefManager(AddAction.this);
+                Integer id = spm.getUser().getId();
+                Integer patient_id = getIntent().getExtras().getInt("id");
+                String action = URLEncoder.encode(content.getText().toString().trim());
+
                 if (content.getText().toString().trim().equals("")) {
                     Toast.makeText(AddAction.this, "Cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    new API(AddAction.this, AddAction.this).execute("POST", "/api_patients/addaction/" + content.getText() + "/" + getIntent().getExtras().getInt("id") + "/" + id);
+                    new API(AddAction.this, AddAction.this).execute("POST", "/api_patients/addaction/" + action + "/" + patient_id + "/" + id);
                 }
             }
         });

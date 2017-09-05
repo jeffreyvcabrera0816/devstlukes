@@ -1,8 +1,8 @@
 package ph.com.jeffreyvcabrera.stlukesdev.fragments;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -30,10 +30,10 @@ import ph.com.jeffreyvcabrera.stlukesdev.utils.API;
 import ph.com.jeffreyvcabrera.stlukesdev.utils.SharedPrefManager;
 
 /**
- * Created by Jeffrey on 2/21/2017.
+ * Created by Jeffrey on 9/5/2017.
  */
 
-public class TesterFragment extends Fragment implements AsyncTaskListener, SwipeRefreshLayout.OnRefreshListener{
+public class PatientsListDefaultFragment extends android.support.v4.app.Fragment implements AsyncTaskListener, SwipeRefreshLayout.OnRefreshListener{
 
     private LinkedHashMap<String, HeaderInfo> myDepartments = new LinkedHashMap<String, HeaderInfo>();
     private ArrayList<HeaderInfo> deptList = new ArrayList<HeaderInfo>();
@@ -58,7 +58,7 @@ public class TesterFragment extends Fragment implements AsyncTaskListener, Swipe
         id = spm.getUser().getId();
         role = spm.getUser().getRole();
 
-        new API(getActivity(), this).execute("POST", "/api_patients/list/id/"+role+"/"+id);
+        new API(getActivity(), this).execute("POST", "/api_patients/list/status/"+role+"/"+id);
 
         return view;
     }
@@ -67,7 +67,7 @@ public class TesterFragment extends Fragment implements AsyncTaskListener, Swipe
     public void onRefresh() {
         myDepartments.clear();
         deptList.clear();
-        new API(getActivity(), this).execute("POST", "/api_patients/list/id/"+role+"/"+id);
+        new API(getActivity(), this).execute("POST", "/api_patients/list/status/"+role+"/"+id);
 
     }
 

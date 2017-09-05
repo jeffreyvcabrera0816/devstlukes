@@ -37,8 +37,6 @@ public class Login extends AppCompatActivity implements AsyncTaskListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sharedpreferences = getSharedPreferences("USERINFO", Context.MODE_PRIVATE);
-
         init();
     }
 

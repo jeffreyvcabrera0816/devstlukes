@@ -114,6 +114,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, PatientAdd.class);
             startActivity(intent);
 
+        } else if (id == R.id.nav_change_pass) {
+            Intent intent = new Intent(this, ChangePassword.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_logout) {
             LayoutInflater li = LayoutInflater.from(MainActivity.this);
             View promptsView = li.inflate(R.layout.prompt_logout, null);

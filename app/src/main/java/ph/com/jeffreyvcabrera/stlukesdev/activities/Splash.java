@@ -121,8 +121,9 @@ public class Splash extends Activity implements AsyncTaskListener{
                 startActivity(intent);
                 finish();
             } else {
-                String message = jObj.getString("error");
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Splash.this, Login.class);
+                startActivity(i);
+                finish();
             }
         } catch (Exception e) {
 
