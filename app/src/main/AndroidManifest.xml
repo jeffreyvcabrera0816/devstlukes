@@ -55,7 +55,9 @@
             android:label="Edit Patient Profile"></activity>
         <activity
             android:name=".activities.PatientAdd"
-            android:label="Add New Patient"></activity>
+            android:label="Add New Patient">
+
+        </activity>
         <activity
             android:name=".activities.ImageAdd"
             android:label="Upload Image"></activity>
@@ -83,6 +85,9 @@
         </provider>
 
         <activity android:name=".activities.UserProfile" android:parentActivityName=".activities.MainActivity"></activity>
+        <activity android:name=".activities.AddPhysician">
+
+        </activity>
     </application>
 
 </manifest>

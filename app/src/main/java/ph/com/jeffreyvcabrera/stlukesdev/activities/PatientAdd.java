@@ -117,11 +117,10 @@ public class PatientAdd extends AppCompatActivity implements AsyncTaskListener {
             JSONObject jObj = new JSONObject(result);
             boolean status = jObj.getBoolean("success");
 
-
             if (status) {
                 Integer patient_id = jObj.getInt("data");
-                Toast.makeText(PatientAdd.this, "New Patient Added", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PatientAdd.this, ImageAdd.class);
+//                Toast.makeText(PatientAdd.this, "New Patient Added", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PatientAdd.this, AddPhysician.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("new_id", patient_id);
                 intent.putExtras(bundle);

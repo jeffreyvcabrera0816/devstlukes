@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,29 +70,58 @@ public class DashboardExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         String headerTitle = (String)getGroup(i);
+
+        View v;
+        final ViewHolder holder;
+
         if(view == null)
         {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_group,null);
+            v = inflater.inflate(R.layout.list_group,null);
+            holder = new ViewHolder(v);
+            v.setTag(holder);
+        } else {
+            v = view;
+            holder = (ViewHolder) v.getTag();
         }
-        TextView lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+
+
+        holder.lblListHeader.setTypeface(null, Typeface.BOLD);
+        holder.lblListHeader.setText(headerTitle);
         return view;
     }
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         final String childText = (String)getChild(i,i1);
+
+        View v;
+        final ViewHolder holder;
+
         if(view == null)
         {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item,null);
+            v = inflater.inflate(R.layout.list_item,null);
+            holder = new ViewHolder(v);
+            v.setTag(holder);
+        } else {
+            v = view;
+            holder = (ViewHolder) v.getTag();
         }
 
-        TextView txtListChild = (TextView)view.findViewById(R.id.lblListItem);
-        txtListChild.setText(childText);
+        holder.txtListChild.setText(childText);
         return view;
+    }
+
+    class ViewHolder {
+
+        TextView txtListChild;
+        TextView lblListHeader;
+
+        ViewHolder(View view) {
+            lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
+            txtListChild = (TextView) view.findViewById(R.id.fullname);
+        }
     }
 
     @Override

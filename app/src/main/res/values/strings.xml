@@ -8,6 +8,8 @@
     <string name="prompt_old_password">Old Password</string>
     <string name="prompt_new_password">New Password</string>
     <string name="prompt_confirm_password">Confirm New Password</string>
+    <string name="designation">Select</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

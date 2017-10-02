@@ -75,11 +75,13 @@
             android:id="@+id/change_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/status"
-            android:layout_below="@+id/physician"
             android:text="(Change)"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/title_font" />
+            android:textSize="@dimen/title_font"
+            android:layout_below="@+id/physician"
+            android:layout_toRightOf="@+id/status"
+            android:layout_toEndOf="@+id/status"
+            android:layout_marginStart="12dp" />
 
         <LinearLayout
             android:layout_below="@+id/change_status"

@@ -5,6 +5,8 @@
     android:orientation="vertical">
 
         <ExpandableListView
+            android:groupIndicator="@null"
+            android:childDivider="@android:color/transparent"
             android:id="@+id/actionsExp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
